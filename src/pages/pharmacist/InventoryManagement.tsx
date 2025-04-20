@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -29,12 +28,10 @@ const InventoryManagement = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Form state for edit dialog
   const [editForm, setEditForm] = useState({
     stock: 0
   });
 
-  // Form state for add dialog
   const [addForm, setAddForm] = useState({
     name: "",
     description: "",
@@ -92,7 +89,6 @@ const InventoryManagement = () => {
     try {
       const updatedMedicine = await updateMedicineStock(selectedMedicine.id, editForm.stock);
       
-      // Update the medicines list
       setMedicines(prevMedicines => 
         prevMedicines.map(med => 
           med.id === selectedMedicine.id ? { ...med, stock: editForm.stock } : med
@@ -116,8 +112,6 @@ const InventoryManagement = () => {
   };
 
   const handleAddSubmit = () => {
-    // In a real app, this would call an API to add the medicine
-    // For the demo, we'll just show a toast
     toast({
       title: "Medicine Added",
       description: `${addForm.name} has been added to your inventory`,
@@ -199,7 +193,7 @@ const InventoryManagement = () => {
                             {medicine.stock > 10 ? (
                               <Badge variant="secondary">{medicine.stock} in stock</Badge>
                             ) : medicine.stock > 0 ? (
-                              <Badge variant="warning" className="bg-yellow-100 text-yellow-800">
+                              <Badge variant="outline" className="bg-yellow-100 text-yellow-800">
                                 Low: {medicine.stock} left
                               </Badge>
                             ) : (
@@ -235,7 +229,6 @@ const InventoryManagement = () => {
             </Card>
           )}
           
-          {/* Edit Stock Dialog */}
           <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
             <DialogContent>
               <DialogHeader>
@@ -274,7 +267,6 @@ const InventoryManagement = () => {
             </DialogContent>
           </Dialog>
           
-          {/* Add Medicine Dialog */}
           <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
             <DialogContent className="max-w-2xl">
               <DialogHeader>
