@@ -22,15 +22,8 @@ import InventoryManagement from "./pages/pharmacist/InventoryManagement";
 import OrderManagement from "./pages/pharmacist/OrderManagement";
 import NotFound from "./pages/NotFound";
 
-// Create a new QueryClient instance
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+// Create a new QueryClient instance with simplified configuration
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
