@@ -22,7 +22,7 @@ import InventoryManagement from "./pages/pharmacist/InventoryManagement";
 import OrderManagement from "./pages/pharmacist/OrderManagement";
 import NotFound from "./pages/NotFound";
 
-// Create a new QueryClient instance with simplified configuration
+// Create a new QueryClient with default configuration for better compatibility
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -54,9 +54,9 @@ const App = () => {
                 
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <Toaster />
+              <Sonner />
             </BrowserRouter>
-            <Toaster />
-            <Sonner />
           </TooltipProvider>
         </CartProvider>
       </AuthProvider>
