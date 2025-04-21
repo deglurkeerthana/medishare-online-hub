@@ -22,43 +22,53 @@ import InventoryManagement from "./pages/pharmacist/InventoryManagement";
 import OrderManagement from "./pages/pharmacist/OrderManagement";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// Create a new QueryClient instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <CartProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/role-selection" element={<RoleSelection />} />
-              
-              {/* Customer Routes */}
-              <Route path="/customer" element={<CustomerDashboard />} />
-              <Route path="/customer/pharmacy-selection" element={<PharmacySelection />} />
-              <Route path="/customer/medicine-browse" element={<MedicineBrowse />} />
-              <Route path="/customer/medicine/:id" element={<MedicineDetails />} />
-              <Route path="/customer/cart" element={<Cart />} />
-              <Route path="/customer/checkout" element={<Checkout />} />
-              <Route path="/customer/order-tracking" element={<OrderTracking />} />
-              
-              {/* Pharmacist Routes */}
-              <Route path="/pharmacist" element={<PharmacistDashboard />} />
-              <Route path="/pharmacist/inventory" element={<InventoryManagement />} />
-              <Route path="/pharmacist/orders" element={<OrderManagement />} />
-              
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </CartProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/role-selection" element={<RoleSelection />} />
+                
+                {/* Customer Routes */}
+                <Route path="/customer" element={<CustomerDashboard />} />
+                <Route path="/customer/pharmacy-selection" element={<PharmacySelection />} />
+                <Route path="/customer/medicine-browse" element={<MedicineBrowse />} />
+                <Route path="/customer/medicine/:id" element={<MedicineDetails />} />
+                <Route path="/customer/cart" element={<Cart />} />
+                <Route path="/customer/checkout" element={<Checkout />} />
+                <Route path="/customer/order-tracking" element={<OrderTracking />} />
+                
+                {/* Pharmacist Routes */}
+                <Route path="/pharmacist" element={<PharmacistDashboard />} />
+                <Route path="/pharmacist/inventory" element={<InventoryManagement />} />
+                <Route path="/pharmacist/orders" element={<OrderManagement />} />
+                
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+            <Toaster />
+            <Sonner />
+          </TooltipProvider>
+        </CartProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
