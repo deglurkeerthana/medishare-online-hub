@@ -22,7 +22,7 @@ import InventoryManagement from "./pages/pharmacist/InventoryManagement";
 import OrderManagement from "./pages/pharmacist/OrderManagement";
 import NotFound from "./pages/NotFound";
 
-// Create a new QueryClient with default configuration for better compatibility
+// Create a simple QueryClient instance
 const queryClient = new QueryClient();
 
 const App = () => {
