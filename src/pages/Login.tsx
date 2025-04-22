@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -61,8 +60,8 @@ const Login = () => {
             <div className="flex justify-center">
               <Package className="h-12 w-12 text-medishare-primary" />
             </div>
-            <h2 className="mt-4 text-3xl font-bold text-gray-900">Welcome back</h2>
-            <p className="mt-2 text-gray-600">Sign in to your MediShare account</p>
+            <h2 className="mt-4 text-3xl font-bold text-gray-900">Welcome back to HealthEase</h2>
+            <p className="mt-2 text-gray-600">Sign in to your HealthEase account</p>
           </div>
           
           <Card>

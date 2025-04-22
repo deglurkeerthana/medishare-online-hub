@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -28,7 +27,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <Package className="h-8 w-8 text-medishare-primary" />
-              <span className="ml-2 text-xl font-bold text-medishare-dark">MediShare</span>
+              <span className="ml-2 text-xl font-bold text-medishare-dark">HealthEase</span>
             </Link>
           </div>
 
@@ -77,6 +76,9 @@ const Navbar = () => {
                     <User className="inline-block h-4 w-4 mr-1" />
                     {user?.name}
                   </span>
+                  <Link to="/profile" className="relative text-gray-600 hover:text-medishare-primary px-3 py-2 rounded-md text-sm font-medium">
+                    <User className="h-5 w-5" />
+                  </Link>
                   <Button variant="outline" size="sm" onClick={handleLogout}>Logout</Button>
                 </div>
               </>

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,8 +22,8 @@ import PharmacySetup from "./pages/pharmacist/PharmacySetup";
 import InventoryManagement from "./pages/pharmacist/InventoryManagement";
 import OrderManagement from "./pages/pharmacist/OrderManagement";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
-// Create a simple QueryClient instance
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -41,7 +40,6 @@ const App = () => {
                   <Route path="/register" element={<Register />} />
                   <Route path="/role-selection" element={<RoleSelection />} />
                   
-                  {/* Customer Routes */}
                   <Route path="/customer" element={<CustomerDashboard />} />
                   <Route path="/customer/pharmacy-selection" element={<PharmacySelection />} />
                   <Route path="/customer/medicine-browse" element={<MedicineBrowse />} />
@@ -50,11 +48,12 @@ const App = () => {
                   <Route path="/customer/checkout" element={<Checkout />} />
                   <Route path="/customer/order-tracking" element={<OrderTracking />} />
                   
-                  {/* Pharmacist Routes */}
                   <Route path="/pharmacist" element={<PharmacistDashboard />} />
                   <Route path="/pharmacist/setup" element={<PharmacySetup />} />
                   <Route path="/pharmacist/inventory" element={<InventoryManagement />} />
                   <Route path="/pharmacist/orders" element={<OrderManagement />} />
+                  
+                  <Route path="/profile" element={<Profile />} />
                   
                   <Route path="*" element={<NotFound />} />
                 </Routes>

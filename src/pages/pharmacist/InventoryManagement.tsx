@@ -238,10 +238,8 @@ const InventoryManagement = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      
       <main className="flex-grow py-8 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          {/* Show pharmacy logo and name */}
           <div className="flex items-center mb-8">
             <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center mr-4 border">
               {pharmacy?.imageUrl ? (
@@ -255,7 +253,6 @@ const InventoryManagement = () => {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400">
-                  {/* Hospital icon fallback */}
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2" fill="#e5e7eb"/><path d="M6 8h4M8 6v4M9 15v2" stroke="#78716c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><rect x="14" y="11" width="6" height="6" rx="1.5" fill="#cbd5e1"/></svg>
                 </div>
               )}
@@ -275,7 +272,6 @@ const InventoryManagement = () => {
               </Button>
             }
           />
-          {/* Replace currency block with nothing (INR only) */}
           <Card className="mb-6">
             <CardContent className="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="relative flex-1 max-w-md">
@@ -288,10 +284,8 @@ const InventoryManagement = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              {/* Removed currency select */}
             </CardContent>
           </Card>
-          {/* ... keep all existing table and dialog UI code, but update formatPrice */}
           {isLoading ? (
             <div className="flex justify-center py-8">
               <div className="text-gray-500">Loading inventory...</div>
@@ -327,7 +321,6 @@ const InventoryManagement = () => {
                               />
                             </div>
                           </td>
-                          {/* ... keep rest of medicine row the same ... */}
                           <td className="py-3 px-4 font-medium">{medicine.name}</td>
                           <td className="py-3 px-4 text-sm">{medicine.category}</td>
                           <td className="py-3 px-4 text-sm">{`₹${medicine.price}`}</td>
@@ -591,7 +584,6 @@ const InventoryManagement = () => {
           </Dialog>
         </div>
       </main>
-      
       <Footer />
     </div>
   );
