@@ -11,11 +11,9 @@ import { Search } from "lucide-react";
 interface MedicineCatalogProps {
   medicines: Medicine[];
   showControls?: boolean;
-  currencyType?: "USD" | "INR";
-  exchangeRate?: number;
 }
 
-const MedicineCatalog = ({ medicines, showControls = true, currencyType = "USD", exchangeRate = 83.15 }: MedicineCatalogProps) => {
+const MedicineCatalog = ({ medicines, showControls = true }: MedicineCatalogProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { addToCart } = useCart();
   
@@ -23,14 +21,6 @@ const MedicineCatalog = ({ medicines, showControls = true, currencyType = "USD",
     medicine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     medicine.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const formatPrice = (price: number) => {
-    if (currencyType === "USD") {
-      return `$${price.toFixed(2)}`;
-    } else {
-      return `₹${(price * exchangeRate).toFixed(2)}`;
-    }
-  };
 
   return (
     <div>
@@ -61,7 +51,7 @@ const MedicineCatalog = ({ medicines, showControls = true, currencyType = "USD",
                 <img
                   src={medicine.imageUrl}
                   alt={medicine.name}
-                  className="h-32 w-32 object-contain"
+                  className="h-40 w-40 object-contain"
                 />
               </div>
               
@@ -85,7 +75,7 @@ const MedicineCatalog = ({ medicines, showControls = true, currencyType = "USD",
                 
                 <div className="flex justify-between items-center">
                   <div className="text-medishare-dark font-bold">
-                    {formatPrice(medicine.price)}
+                    ₹{medicine.price}
                   </div>
                   
                   {showControls && (

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../../contexts/AuthContext";
@@ -14,7 +13,7 @@ import { getMedicineById } from "../../services/medicineService";
 import { Medicine } from "../../types/medicine";
 import Navbar from "../../components/common/Navbar";
 import Footer from "../../components/common/Footer";
-import { CheckCircle, XCircle, AlertCircle, Package, ShoppingCart, IndianRupee, DollarSign } from "lucide-react";
+import { CheckCircle, XCircle, AlertCircle, Package, ShoppingCart, IndianRupee } from "lucide-react";
 
 const MedicineDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,10 +23,7 @@ const MedicineDetails = () => {
   const [medicine, setMedicine] = useState<Medicine | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [currencyType, setCurrencyType] = useState<"USD" | "INR">("USD");
   const navigate = useNavigate();
-
-  const exchangeRate = 83.15; // 1 USD = 83.15 INR (as of April 2025)
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -70,14 +66,6 @@ const MedicineDetails = () => {
     const newQuantity = quantity + change;
     if (newQuantity > 0 && medicine && newQuantity <= medicine.stock) {
       setQuantity(newQuantity);
-    }
-  };
-
-  const formatPrice = (price: number) => {
-    if (currencyType === "USD") {
-      return `$${price.toFixed(2)}`;
-    } else {
-      return `₹${(price * exchangeRate).toFixed(2)}`;
     }
   };
 
@@ -141,33 +129,10 @@ const MedicineDetails = () => {
                   </Badge>
                 </div>
                 
-                <div className="flex items-center space-x-4 mb-4">
+                <div className="flex items-center mb-4">
                   <div className="text-lg font-semibold text-medishare-primary flex items-center">
-                    {currencyType === "USD" ? (
-                      <DollarSign className="w-4 h-4 mr-1" />
-                    ) : (
-                      <IndianRupee className="w-4 h-4 mr-1" />
-                    )}
-                    {currencyType === "USD" ? 
-                      medicine.price.toFixed(2) : 
-                      (medicine.price * exchangeRate).toFixed(2)
-                    }
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="currency" className="text-sm font-medium">Currency:</Label>
-                    <Select 
-                      value={currencyType}
-                      onValueChange={(value: "USD" | "INR") => setCurrencyType(value)}
-                    >
-                      <SelectTrigger className="w-24">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="USD">USD ($)</SelectItem>
-                        <SelectItem value="INR">INR (₹)</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <IndianRupee className="w-4 h-4 mr-1" />
+                    {medicine.price}
                   </div>
                 </div>
                 
