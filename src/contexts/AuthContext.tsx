@@ -29,9 +29,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // For demo purposes, we'll use a mock login function
   const login = async (email: string, password: string) => {
     // In a real app, this would make an API call to authenticate
-    // For demo, we'll create a mock user
+    // For demo, we'll check if we have stored user data
+    const storedUsers = localStorage.getItem('medishare_users');
+    let users: User[] = [];
+    
+    if (storedUsers) {
+      users = JSON.parse(storedUsers);
+      const foundUser = users.find(u => u.email === email);
+      
+      if (foundUser) {
+        // In a real app, we would validate the password here
+        setUser(foundUser);
+        setCurrentRole(foundUser.role);
+        return Promise.resolve();
+      }
+    }
+    
+    // If user not found, create a new one
     const mockUser = {
-      id: "user-1",
+      id: `user-${Date.now()}`,
       name: email.split('@')[0],
       email,
       role: null as UserRole
@@ -46,18 +62,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const register = async (name: string, email: string, password: string, role: UserRole) => {
     // In a real app, this would make an API call to register the user
-    // For demo, we'll create a mock user
-    const mockUser = {
-      id: "user-1",
+    // For demo, we'll create a mock user and store it
+    const newUser = {
+      id: `user-${Date.now()}`,
       name,
       email,
       role
     };
 
+    // Store user in localStorage for persistence
+    const storedUsers = localStorage.getItem('medishare_users');
+    let users: User[] = [];
+    
+    if (storedUsers) {
+      users = JSON.parse(storedUsers);
+    }
+    
+    users.push(newUser);
+    localStorage.setItem('medishare_users', JSON.stringify(users));
+
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    setUser(mockUser);
+    setUser(newUser);
     setCurrentRole(role);
     return Promise.resolve();
   };

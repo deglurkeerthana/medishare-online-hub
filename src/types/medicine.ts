@@ -12,4 +12,6 @@ export interface Medicine {
   stock: number;
   category: string;
   requires_prescription: boolean;
+  pharmacyId?: string;
+  ownerId?: string;
 }

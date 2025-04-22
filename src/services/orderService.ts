@@ -41,6 +41,8 @@ export const createOrder = (order: Omit<Order, "id" | "createdAt" | "updatedAt">
     updatedAt: now
   };
   
-  // We would add this to our database
+  // Add to our mock database
+  orders.push(newOrder);
+  
   return Promise.resolve(newOrder);
 };

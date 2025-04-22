@@ -2,7 +2,11 @@
 import { medicines } from "./mockData";
 import { Medicine } from "../types/medicine";
 
-export const getAllMedicines = () => {
+export const getAllMedicines = (ownerId?: string) => {
+  if (ownerId) {
+    const filteredMedicines = medicines.filter(med => med.ownerId === ownerId);
+    return Promise.resolve(filteredMedicines);
+  }
   return Promise.resolve(medicines);
 };
 
@@ -13,6 +17,11 @@ export const getMedicineById = (id: string) => {
 
 export const getMedicinesByCategory = (category: string) => {
   const filteredMedicines = medicines.filter(med => med.category === category);
+  return Promise.resolve(filteredMedicines);
+};
+
+export const getMedicinesByPharmacy = (pharmacyId: string) => {
+  const filteredMedicines = medicines.filter(med => med.pharmacyId === pharmacyId);
   return Promise.resolve(filteredMedicines);
 };
 
@@ -46,5 +55,17 @@ export const addMedicine = (medicine: Omit<Medicine, "id">) => {
   };
   
   // We would add this to our database
+  medicines.push(newMedicine);
   return Promise.resolve(newMedicine);
+};
+
+export const deleteMedicine = (id: string) => {
+  // In a real app, this would make an API call
+  // For the demo, we'll remove the medicine from our array
+  const index = medicines.findIndex(med => med.id === id);
+  if (index !== -1) {
+    medicines.splice(index, 1);
+  }
+  
+  return Promise.resolve(true);
 };

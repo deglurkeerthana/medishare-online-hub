@@ -3,9 +3,14 @@ export interface Pharmacy {
   id: string;
   name: string;
   address: string;
-  rating: number;
-  imageUrl: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  phone: string;
+  email: string;
   description: string;
-  openingHours: string;
-  distance: string;
+  imageUrl: string;
+  rating: number;
+  reviewCount: number;
+  ownerId?: string;
 }
