@@ -13,4 +13,6 @@ export interface Pharmacy {
   rating: number;
   reviewCount: number;
   ownerId?: string;
+  openingHours?: string;
+  distance?: string;
 }

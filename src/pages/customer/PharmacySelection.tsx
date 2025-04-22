@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "../../contexts/AuthContext";
-import { getAllPharmacies } from "../../services/pharmacyService";
+import { getPharmacies } from "../../services/pharmacyService";
 import { Pharmacy } from "../../types/pharmacy";
 import Navbar from "../../components/common/Navbar";
 import Footer from "../../components/common/Footer";
@@ -32,7 +32,7 @@ const PharmacySelection = () => {
     
     const loadPharmacies = async () => {
       try {
-        const data = await getAllPharmacies();
+        const data = await getPharmacies();
         setPharmacies(data);
       } catch (error) {
         console.error("Error loading pharmacies:", error);
@@ -112,15 +112,19 @@ const PharmacySelection = () => {
                       <span>{pharmacy.address}</span>
                     </div>
                     
-                    <div className="flex items-start space-x-2 text-sm text-gray-600 mb-3">
-                      <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                      <span>{pharmacy.openingHours}</span>
-                    </div>
+                    {pharmacy.openingHours && (
+                      <div className="flex items-start space-x-2 text-sm text-gray-600 mb-3">
+                        <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                        <span>{pharmacy.openingHours}</span>
+                      </div>
+                    )}
                     
                     <p className="text-sm text-gray-600 mb-4 line-clamp-2">{pharmacy.description}</p>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium text-medishare-primary">{pharmacy.distance} away</span>
+                      {pharmacy.distance && (
+                        <span className="text-sm font-medium text-medishare-primary">{pharmacy.distance} away</span>
+                      )}
                       <Link to={`/customer/medicine-browse?pharmacy=${pharmacy.id}`}>
                         <Button size="sm">Select</Button>
                       </Link>

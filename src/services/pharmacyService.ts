@@ -6,6 +6,9 @@ export const getPharmacies = () => {
   return Promise.resolve(pharmacies);
 };
 
+// Alias for getPharmacies to maintain backward compatibility if needed
+export const getAllPharmacies = getPharmacies;
+
 export const getPharmacyById = (id: string) => {
   const pharmacy = pharmacies.find(pharmacy => pharmacy.id === id);
   return Promise.resolve(pharmacy || null);
