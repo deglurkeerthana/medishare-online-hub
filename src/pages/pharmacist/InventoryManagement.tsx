@@ -193,7 +193,7 @@ const InventoryManagement = () => {
 
     try {
       // In a real app, we'd upload the image to a storage service
-      // For this demo, we'll use the preview URL
+      // For this demo, we'll use the preview URL if available
       const newMedicine = await addMedicine({
         ...addForm,
         imageUrl: imagePreview || "/placeholder.svg",

@@ -26,7 +26,10 @@ const MedicineBrowse = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [pharmacy, setPharmacy] = useState<Pharmacy | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currencyType, setCurrencyType] = useState<"USD" | "INR">("USD"); // Added for currency toggle
   const navigate = useNavigate();
+
+  const exchangeRate = 83.15; // 1 USD = 83.15 INR (as of April 2025)
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -110,7 +113,23 @@ const MedicineBrowse = () => {
                 />
               </div>
             </div>
-            
+            <div className="flex items-center mb-6 space-x-4">
+              <label className="text-sm font-medium">Currency:</label>
+              <Button 
+                variant={currencyType === "USD" ? "default" : "outline"} 
+                onClick={() => setCurrencyType("USD")}
+                size="sm"
+              >
+                USD ($)
+              </Button>
+              <Button 
+                variant={currencyType === "INR" ? "default" : "outline"} 
+                onClick={() => setCurrencyType("INR")}
+                size="sm"
+              >
+                INR (₹)
+              </Button>
+            </div>
             <Tabs defaultValue="All" value={activeCategory} onValueChange={handleCategoryChange}>
               <TabsList className="mb-6 flex flex-wrap">
                 {CATEGORIES.map((category) => (
@@ -127,7 +146,12 @@ const MedicineBrowse = () => {
                       <div className="text-gray-500">Loading medicines...</div>
                     </div>
                   ) : filteredMedicines.length > 0 ? (
-                    <MedicineCatalog medicines={filteredMedicines} showControls={false} />
+                    <MedicineCatalog 
+                      medicines={filteredMedicines} 
+                      showControls={false}
+                      currencyType={currencyType}
+                      exchangeRate={exchangeRate}
+                    />
                   ) : (
                     <div className="text-center py-8">
                       <p className="text-gray-500 mb-4">No medicines found matching your search criteria.</p>
