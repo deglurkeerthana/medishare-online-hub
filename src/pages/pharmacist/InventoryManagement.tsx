@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -172,7 +171,6 @@ const InventoryManagement = () => {
   };
 
   const handleAddSubmit = async () => {
-    // Input validation
     if (!addForm.name || !addForm.description || !addForm.category || !addForm.dosage) {
       toast({
         title: "Missing Information",
@@ -192,8 +190,6 @@ const InventoryManagement = () => {
     }
 
     try {
-      // In a real app, we'd upload the image to a storage service
-      // For this demo, we'll use the preview URL if available
       const newMedicine = await addMedicine({
         ...addForm,
         imageUrl: imagePreview || "/placeholder.svg",
@@ -438,7 +434,7 @@ const InventoryManagement = () => {
           </Dialog>
           
           <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Add New Medicine</DialogTitle>
                 <DialogDescription>
@@ -446,7 +442,7 @@ const InventoryManagement = () => {
                 </DialogDescription>
               </DialogHeader>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 max-h-[70vh] overflow-y-auto">
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="image" className="block">Medicine Image*</Label>
                   <div className="flex items-center gap-4">
@@ -579,7 +575,7 @@ const InventoryManagement = () => {
                 </div>
               </div>
               
-              <DialogFooter>
+              <DialogFooter className="sticky bottom-0 bg-white pt-4 border-t">
                 <Button variant="outline" onClick={() => setAddDialogOpen(false)}>Cancel</Button>
                 <Button onClick={handleAddSubmit}>Add Medicine</Button>
               </DialogFooter>
