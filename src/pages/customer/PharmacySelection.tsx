@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -90,15 +89,26 @@ const PharmacySelection = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredPharmacies.map((pharmacy) => (
                 <Card key={pharmacy.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-40 bg-gray-100">
-                    <img
-                      src={pharmacy.imageUrl}
-                      alt={pharmacy.name}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="h-48 bg-gray-100 flex items-center justify-center">
+                    {pharmacy.imageUrl ? (
+                      <img
+                        src={pharmacy.imageUrl}
+                        alt={pharmacy.name}
+                        className="w-32 h-32 object-contain"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/placeholder.svg";
+                        }}
+                      />
+                    ) : (
+                      <div className="w-32 h-32 flex items-center justify-center bg-gray-200 text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2" fill="#e5e7eb"/><path d="M6 8h4M8 6v4M9 15v2" stroke="#78716c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><rect x="14" y="11" width="6" height="6" rx="1.5" fill="#cbd5e1"/></svg>
+                      </div>
+                    )}
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{pharmacy.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center">
+                      {pharmacy.name}
+                    </h3>
                     
                     <div className="flex items-center mb-2">
                       <div className="flex mr-2">

@@ -29,7 +29,6 @@ const InventoryManagement = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [currencyType, setCurrencyType] = useState<"USD" | "INR">("USD");
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -233,11 +232,7 @@ const InventoryManagement = () => {
   };
 
   const formatPrice = (price: number) => {
-    if (currencyType === "USD") {
-      return `$${price.toFixed(2)}`;
-    } else {
-      return `₹${(price * exchangeRate).toFixed(2)}`;
-    }
+    return `₹${(price * exchangeRate).toFixed(2)}`;
   };
 
   return (
@@ -246,6 +241,30 @@ const InventoryManagement = () => {
       
       <main className="flex-grow py-8 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
+          {/* Show pharmacy logo and name */}
+          <div className="flex items-center mb-8">
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center mr-4 border">
+              {pharmacy?.imageUrl ? (
+                <img
+                  src={pharmacy.imageUrl}
+                  alt={pharmacy?.name}
+                  className="object-cover w-full h-full"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/placeholder.svg";
+                  }}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-400">
+                  {/* Hospital icon fallback */}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2" fill="#e5e7eb"/><path d="M6 8h4M8 6v4M9 15v2" stroke="#78716c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><rect x="14" y="11" width="6" height="6" rx="1.5" fill="#cbd5e1"/></svg>
+                </div>
+              )}
+            </div>
+            <div>
+              <h1 className="text-xl font-bold">{pharmacy?.name || "Pharmacy"}</h1>
+              <p className="text-gray-500">{pharmacy?.address}</p>
+            </div>
+          </div>
           <PageHeader 
             title="Inventory Management" 
             description={`Manage your medicine inventory for ${pharmacy?.name || 'your pharmacy'}`}
@@ -256,7 +275,7 @@ const InventoryManagement = () => {
               </Button>
             }
           />
-          
+          {/* Replace currency block with nothing (INR only) */}
           <Card className="mb-6">
             <CardContent className="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="relative flex-1 max-w-md">
@@ -269,25 +288,10 @@ const InventoryManagement = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              
-              <div className="flex items-center space-x-2">
-                <Label htmlFor="currency" className="text-sm font-medium">Currency:</Label>
-                <Select 
-                  value={currencyType}
-                  onValueChange={(value: "USD" | "INR") => setCurrencyType(value)}
-                >
-                  <SelectTrigger className="w-24">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="USD">USD ($)</SelectItem>
-                    <SelectItem value="INR">INR (₹)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              {/* Removed currency select */}
             </CardContent>
           </Card>
-          
+          {/* ... keep all existing table and dialog UI code, but update formatPrice */}
           {isLoading ? (
             <div className="flex justify-center py-8">
               <div className="text-gray-500">Loading inventory...</div>
@@ -302,7 +306,7 @@ const InventoryManagement = () => {
                         <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Image</th>
                         <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Name</th>
                         <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Category</th>
-                        <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Price</th>
+                        <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Price (₹)</th>
                         <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Stock</th>
                         <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Prescription</th>
                         <th className="py-3 px-4 text-left text-sm font-medium text-gray-500">Actions</th>
@@ -314,15 +318,19 @@ const InventoryManagement = () => {
                           <td className="py-3 px-4">
                             <div className="w-12 h-12 rounded bg-gray-100 flex items-center justify-center overflow-hidden">
                               <img 
-                                src={medicine.imageUrl} 
+                                src={medicine.imageUrl || "/placeholder.svg"} 
                                 alt={medicine.name} 
                                 className="max-w-full max-h-full object-contain"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = "/placeholder.svg";
+                                }}
                               />
                             </div>
                           </td>
+                          {/* ... keep rest of medicine row the same ... */}
                           <td className="py-3 px-4 font-medium">{medicine.name}</td>
                           <td className="py-3 px-4 text-sm">{medicine.category}</td>
-                          <td className="py-3 px-4 text-sm">{formatPrice(medicine.price)}</td>
+                          <td className="py-3 px-4 text-sm">{`₹${medicine.price}`}</td>
                           <td className="py-3 px-4">
                             {medicine.stock > 10 ? (
                               <Badge variant="secondary">{medicine.stock} in stock</Badge>

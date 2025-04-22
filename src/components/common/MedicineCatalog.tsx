@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Medicine } from "../../types/medicine";
@@ -48,11 +47,22 @@ const MedicineCatalog = ({ medicines, showControls = true }: MedicineCatalogProp
           {filteredMedicines.map((medicine) => (
             <div key={medicine.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="h-48 bg-gray-100 flex items-center justify-center">
-                <img
-                  src={medicine.imageUrl}
-                  alt={medicine.name}
-                  className="h-40 w-40 object-contain"
-                />
+                {medicine.imageUrl ? (
+                  <img
+                    src={medicine.imageUrl}
+                    alt={medicine.name}
+                    className="h-40 w-40 object-contain"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                    }}
+                  />
+                ) : (
+                  <img
+                    src="/placeholder.svg"
+                    alt="No image"
+                    className="h-40 w-40 object-contain"
+                  />
+                )}
               </div>
               
               <div className="p-4">
