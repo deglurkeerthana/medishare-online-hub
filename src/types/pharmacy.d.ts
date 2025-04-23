@@ -27,3 +27,4 @@ export interface PharmacyReview {
   comment: string;
   createdAt: string;
 }
+

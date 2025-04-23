@@ -1,5 +1,5 @@
 import { mockPharmacies } from "./mockData";
-import { Pharmacy } from "../types/pharmacy";
+import { Pharmacy, PharmacyReview } from "../types/pharmacy";
 
 export const getPharmacies = () => {
   return Promise.resolve(mockPharmacies);

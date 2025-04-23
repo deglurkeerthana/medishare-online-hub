@@ -43,6 +43,40 @@ export const mockMedicines: Medicine[] = [
 
 export const mockPharmacies: Pharmacy[] = [
   {
+    id: "pharmacy-1",
+    name: "HealthCare Plus",
+    address: "123 Main St",
+    city: "Mumbai",
+    state: "Maharashtra",
+    zipCode: "400001",
+    phone: "+91-9876543210",
+    email: "info@healthcareplus.com",
+    description: "Your trusted neighborhood pharmacy",
+    imageUrl: "/placeholder.svg",
+    rating: 4.5,
+    reviewCount: 2,
+    openingHours: "9:00 AM - 9:00 PM",
+    distance: "0.5 km",
+    reviews: [
+      {
+        id: "review-1",
+        userId: "user-1",
+        userName: "John Doe",
+        rating: 5,
+        comment: "Great service and friendly staff!",
+        createdAt: "2025-04-20T10:00:00Z"
+      },
+      {
+        id: "review-2",
+        userId: "user-2",
+        userName: "Jane Smith",
+        rating: 4,
+        comment: "Good medicine selection",
+        createdAt: "2025-04-19T15:30:00Z"
+      }
+    ]
+  },
+  {
     id: "1",
     name: "Family Care Pharmacy",
     address: "123 Main St, City Center",
