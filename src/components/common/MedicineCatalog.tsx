@@ -83,7 +83,12 @@ const MedicineCatalog = ({ medicines, showControls = true }: MedicineCatalogProp
                   {medicine.description}
                 </p>
                 
-                <div className="flex justify-between items-center">
+                <div className="text-xs text-gray-500 mt-2 space-y-1">
+                  <p>Manufacture Date: {new Date(medicine.manufactureDate).toLocaleDateString()}</p>
+                  <p>Expiry Date: {new Date(medicine.expiryDate).toLocaleDateString()}</p>
+                </div>
+                
+                <div className="flex justify-between items-center mt-3">
                   <div className="text-medishare-dark font-bold">
                     ₹{medicine.price}
                   </div>

@@ -1,4 +1,3 @@
-
 import { Medicine } from "../types/medicine";
 import { Pharmacy } from "../types/pharmacy";
 import { Order } from "../types/order";
@@ -117,4 +116,3 @@ export const mockOrders: Order[] = [
     status: "shipped",
   },
 ];
-
