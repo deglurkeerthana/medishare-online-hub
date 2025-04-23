@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -48,8 +47,10 @@ const Profile = () => {
       }
     }
     // Sync for current session
-    user && (user.name = name);
-    user && (user.imageUrl = preview || "");
+    if (user) {
+      user.name = name;
+      user.imageUrl = preview || "";
+    }
     setCurrentRole(user?.role);
     navigate("/");
   };
