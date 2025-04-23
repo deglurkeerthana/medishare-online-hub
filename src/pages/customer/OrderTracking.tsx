@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -231,7 +230,7 @@ const OrderTracking = () => {
                                   <p className="font-medium">{item.medicineName}</p>
                                   <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
                                 </div>
-                                <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                                <p className="font-medium">₹{(item.price * item.quantity).toFixed(2)}</p>
                               </li>
                             ))}
                           </ul>

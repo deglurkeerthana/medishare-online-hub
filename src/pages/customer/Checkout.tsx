@@ -316,11 +316,11 @@ const OrderSummary = ({ items, totalPrice, shippingCost, taxAmount, orderTotal }
               <div>
                 <span className="font-medium">{item.medicine.name}</span>
                 <div className="text-sm text-gray-500">
-                  Qty: {item.quantity} x ${item.medicine.price.toFixed(2)}
+                  Qty: {item.quantity} x ₹{item.medicine.price.toFixed(2)}
                 </div>
               </div>
               <span className="font-medium">
-                ${(item.medicine.price * item.quantity).toFixed(2)}
+                ₹{(item.medicine.price * item.quantity).toFixed(2)}
               </span>
             </li>
           ))}
@@ -329,21 +329,21 @@ const OrderSummary = ({ items, totalPrice, shippingCost, taxAmount, orderTotal }
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">Subtotal</span>
-            <span className="font-medium">${totalPrice.toFixed(2)}</span>
+            <span className="font-medium">₹{totalPrice.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">Shipping</span>
-            <span className="font-medium">${shippingCost.toFixed(2)}</span>
+            <span className="font-medium">₹{shippingCost.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">Tax (5%)</span>
-            <span className="font-medium">${taxAmount.toFixed(2)}</span>
+            <span className="font-medium">₹{taxAmount.toFixed(2)}</span>
           </div>
           <Separator />
           <div className="flex justify-between">
             <span className="font-semibold">Total</span>
             <span className="font-bold text-lg">
-              ${orderTotal.toFixed(2)}
+              ₹{orderTotal.toFixed(2)}
             </span>
           </div>
         </div>
