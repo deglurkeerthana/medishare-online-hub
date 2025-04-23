@@ -43,6 +43,18 @@ export const updateMedicineStock = (id: string, newStock: number) => {
   return Promise.resolve(updatedMedicines.find(med => med.id === id) || null);
 };
 
+export const updateMedicineImage = (id: string, imageUrl: string) => {
+  const medicineIndex = mockMedicines.findIndex(med => med.id === id);
+  if (medicineIndex === -1) return Promise.resolve(null);
+
+  mockMedicines[medicineIndex] = {
+    ...mockMedicines[medicineIndex],
+    imageUrl
+  };
+
+  return Promise.resolve(mockMedicines[medicineIndex]);
+};
+
 export const addMedicine = (medicine: Omit<Medicine, "id">) => {
   const newMedicine: Medicine = {
     ...medicine,

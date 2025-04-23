@@ -38,3 +38,50 @@ export const addPharmacy = (pharmacy: Omit<Pharmacy, "id" | "rating" | "reviewCo
   mockPharmacies.push(newPharmacy);
   return Promise.resolve(newPharmacy);
 };
+
+export const addPharmacyReview = (pharmacyId: string, review: Omit<PharmacyReview, "id" | "createdAt">) => {
+  const pharmacy = mockPharmacies.find(p => p.id === pharmacyId);
+  if (!pharmacy) return Promise.resolve(null);
+
+  const newReview = {
+    ...review,
+    id: `review-${Math.floor(Math.random() * 1000)}`,
+    createdAt: new Date().toISOString()
+  };
+
+  if (!pharmacy.reviews) {
+    pharmacy.reviews = [];
+  }
+  pharmacy.reviews.push(newReview);
+
+  // Update pharmacy rating
+  const totalRating = pharmacy.reviews.reduce((sum, r) => sum + r.rating, 0);
+  pharmacy.rating = totalRating / pharmacy.reviews.length;
+  pharmacy.reviewCount = pharmacy.reviews.length;
+
+  return Promise.resolve(pharmacy);
+};
+
+export const updatePharmacyImage = (pharmacyId: string, imageUrl: string) => {
+  const pharmacyIndex = mockPharmacies.findIndex(p => p.id === pharmacyId);
+  if (pharmacyIndex === -1) return Promise.resolve(null);
+
+  mockPharmacies[pharmacyIndex] = {
+    ...mockPharmacies[pharmacyIndex],
+    imageUrl
+  };
+
+  return Promise.resolve(mockPharmacies[pharmacyIndex]);
+};
+
+export const updatePharmacyOwnerImage = (pharmacyId: string, ownerImage: string) => {
+  const pharmacyIndex = mockPharmacies.findIndex(p => p.id === pharmacyId);
+  if (pharmacyIndex === -1) return Promise.resolve(null);
+
+  mockPharmacies[pharmacyIndex] = {
+    ...mockPharmacies[pharmacyIndex],
+    ownerImage
+  };
+
+  return Promise.resolve(mockPharmacies[pharmacyIndex]);
+};

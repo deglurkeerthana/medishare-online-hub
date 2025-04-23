@@ -7,4 +7,5 @@ export interface User {
   phone?: string;
   address?: string;
   imageUrl?: string;
+  pharmacyId?: string;
 }
