@@ -49,7 +49,9 @@ const InventoryManagement = () => {
     stock: 0,
     category: "",
     requires_prescription: false,
-    imageUrl: ""
+    imageUrl: "",
+    manufactureDate: "",
+    expiryDate: ""
   });
 
   const [medicineImage, setMedicineImage] = useState<File | null>(null);
@@ -217,7 +219,9 @@ const InventoryManagement = () => {
         stock: 0,
         category: "",
         requires_prescription: false,
-        imageUrl: ""
+        imageUrl: "",
+        manufactureDate: "",
+        expiryDate: ""
       });
       setMedicineImage(null);
       setImagePreview("");
@@ -571,6 +575,28 @@ const InventoryManagement = () => {
                     value={addForm.sideEffects}
                     onChange={(e) => setAddForm({ ...addForm, sideEffects: e.target.value })}
                     placeholder="Nausea, Dizziness, etc."
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="manufactureDate">Manufacture Date*</Label>
+                  <Input
+                    id="manufactureDate"
+                    type="date"
+                    value={addForm.manufactureDate}
+                    onChange={(e) => setAddForm({ ...addForm, manufactureDate: e.target.value })}
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="expiryDate">Expiry Date*</Label>
+                  <Input
+                    id="expiryDate"
+                    type="date"
+                    value={addForm.expiryDate}
+                    onChange={(e) => setAddForm({ ...addForm, expiryDate: e.target.value })}
                     required
                   />
                 </div>

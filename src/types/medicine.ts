@@ -14,4 +14,6 @@ export interface Medicine {
   requires_prescription: boolean;
   pharmacyId?: string;
   ownerId?: string;
+  manufactureDate: string;
+  expiryDate: string;
 }
